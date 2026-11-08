@@ -1,0 +1,5 @@
+SELECT COUNT(*) AS total_baris,
+FROM virtual-intern-bi-analyst.Data_Set_Order.Orders o
+JOIN virtual-intern-bi-analyst.Customer.Customers c ON o.CustomerID = c.CustomerID
+JOIN virtual-intern-bi-analyst.Product.Product p ON o.ProdNumber = p.ProdNumber
+JOIN virtual-intern-bi-analyst.Data_Set_ProductCategory.Product_Category pc ON p.Category = pc.CategoryID;
