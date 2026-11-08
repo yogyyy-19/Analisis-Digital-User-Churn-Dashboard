@@ -1,0 +1,18 @@
+CREATE OR REPLACE TABLE virtual-intern-bi-analyst.Data_Set_Order.master_table AS
+SELECT 
+    o.Date                                          AS order_date, 
+    pc.CategoryName                                 AS category_name, 
+    p.ProdName                                      AS product_name, 
+    CAST(REPLACE(CAST(p.Price AS STRING), ',', '.') AS NUMERIC) AS product_price, 
+    o.Quantity                                      AS order_qty, 
+    o.Quantity * CAST(REPLACE(CAST(p.Price AS STRING), ',', '.') AS NUMERIC) AS total_sales, 
+    SPLIT(c.CustomerEmail, '#')[OFFSET(0)]          AS cust_email, 
+    c.CustomerCity                                  AS cust_city
+FROM virtual-intern-bi-analyst.Data_Set_Order.Orders AS o 
+JOIN virtual-intern-bi-analyst.Customer.Customers AS c 
+    ON o.CustomerID = c.CustomerID 
+JOIN virtual-intern-bi-analyst.Product.Product AS p 
+    ON o.ProdNumber = p.ProdNumber
+JOIN virtual-intern-bi-analyst.Data_Set_ProductCategory.Product_Category AS pc 
+    ON p.Category = pc.CategoryID
+ORDER BY order_date ASC, o.OrderID ASC;
