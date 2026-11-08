@@ -1,0 +1,29 @@
+SELECT 'Orders' AS tabel, 
+COUNT(*) AS total, 
+COUNT(DISTINCT OrderID) AS uniq, 
+COUNTIF(OrderID IS NULL) AS Nul, 
+FROM virtual-intern-bi-analyst.Data_Set_Order.Orders
+
+UNION ALL
+
+SELECT 'Customer', 
+COUNT(*), 
+COUNT(DISTINCT CustomerID), 
+COUNTIF(CustomerID IS NULL) 
+FROM virtual-intern-bi-analyst.Customer.Customers
+
+UNION ALL
+
+SELECT 'Product', 
+COUNT(*), 
+COUNT(DISTINCT ProdNumber), 
+COUNTIF(ProdNumber IS NULL) 
+FROM virtual-intern-bi-analyst.Product.Product
+
+UNION ALL
+
+SELECT 'Product Category', 
+COUNT(*), 
+COUNT(DISTINCT CategoryID), 
+COUNTIF(CategoryID IS NULL) 
+FROM virtual-intern-bi-analyst.Data_Set_ProductCategory.Product_Category
