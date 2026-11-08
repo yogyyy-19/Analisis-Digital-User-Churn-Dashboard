@@ -1,0 +1,30 @@
+SELECT
+  'Orders.CustomerID -> Customer.CustomerID' AS relasi,
+  COUNT(*)                                   AS total_baris_anak,
+  COUNT(DISTINCT o.CustomerID)               AS induk_yang_dipakai,
+  COUNTIF(c.CustomerID IS NULL)              AS tanpa_induk
+FROM `virtual-intern-bi-analyst.Data_Set_Order.Orders` AS o
+LEFT JOIN `virtual-intern-bi-analyst.Customer.Customers` AS c
+  ON o.CustomerID = c.CustomerID
+
+UNION ALL
+
+SELECT
+  'Orders.ProdNumber -> Product.ProdNumber',
+  COUNT(*),
+  COUNT(DISTINCT o.ProdNumber),
+  COUNTIF(p.ProdNumber IS NULL)
+FROM `virtual-intern-bi-analyst.Data_Set_Order.Orders` AS o
+LEFT JOIN `virtual-intern-bi-analyst.Product.Product` AS p
+  ON o.ProdNumber = p.ProdNumber
+
+UNION ALL
+
+SELECT
+  'Product.Category -> Product_Category.CategoryID',
+  COUNT(*),
+  COUNT(DISTINCT p.Category),
+  COUNTIF(pc.CategoryID IS NULL)
+FROM `virtual-intern-bi-analyst.Product.Product` AS p
+LEFT JOIN `virtual-intern-bi-analyst.Data_Set_ProductCategory.Product_Category` AS pc
+  ON p.Category = pc.CategoryID;
